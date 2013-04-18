@@ -172,7 +172,9 @@ function ting_relation_review_other($relation) {
   // Type title.
   $content['type'] = $relation['#title'];
   // Title.
-  $content['title'] = $rel->object->title;
+  global $base_url;
+  $relation_title_link = l($rel->object->title, $base_url . '/ting/object/' . $ting->ding_entity_id); 
+  $content['title'] = $relation_title_link;
   // Creators.
   if ($names = ting_relation_array2names($rel->object->creators)) {
     $content['byline'] = t('by @author', array('@author' => $names));
@@ -200,7 +202,9 @@ function ting_relation_review($relation) {
   // Type title ; generel.
   $content['type'] = $relation['#title'];
   // Title ; generel.
-  $content['title'] = $rel->object->title;
+  global $base_url;
+  $relation_title_link = l($rel->object->title, $base_url . '/ting/object/' . $ting->ding_entity_id); 
+  $content['title'] = $relation_title_link;
   // Year.
   $content['year'] = $rel->object->date;
   // Creator.
