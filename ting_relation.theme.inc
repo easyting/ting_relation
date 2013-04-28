@@ -172,7 +172,14 @@ function ting_relation_review_other($relation) {
   // Type title.
   $content['type'] = $relation['#title'];
   // Title.
-  $content['title'] = $rel->object->title;
+  global $base_url;
+  // Check if we should link to fulltext.
+  if (in_array('docbook', $ting->reply->formatsAvailable) && !array_key_exists('dc:identifier', $ting->reply->record)) {
+    $content['title'] = l($rel->object->title, $base_url . '/ting/object/' . $ting->ding_entity_id . '/fulltext');  
+  }
+  else{
+    $content['title'] = l($rel->object->title, $base_url . '/ting/object/' . $ting->ding_entity_id);  
+  }
   // Creators.
   if ($names = ting_relation_array2names($rel->object->creators)) {
     $content['byline'] = t('by @author', array('@author' => $names));
@@ -200,7 +207,14 @@ function ting_relation_review($relation) {
   // Type title ; generel.
   $content['type'] = $relation['#title'];
   // Title ; generel.
-  $content['title'] = $rel->object->title;
+  global $base_url;
+  // Check if we should link to fulltext.
+  if (in_array('docbook', $ting->reply->formatsAvailable) && !array_key_exists('dc:identifier', $ting->reply->record)) {
+    $content['title'] = l($rel->object->title, $base_url . '/ting/object/' . $ting->ding_entity_id . '/fulltext');  
+  }
+  else{
+    $content['title'] = l($rel->object->title, $base_url . '/ting/object/' . $ting->ding_entity_id);  
+  }
   // Year.
   $content['year'] = $rel->object->date;
   // Creator.
