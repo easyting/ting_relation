@@ -100,7 +100,9 @@ function ting_relation_ding_entity_buttons($type, $entity) {
         $url = str_replace('[URL]', $ebrary_url, $relation->uri);
       }
       elseif (strstr($relation->uri, '[useraccessinfomedia]')) {
-        $url = 'ting/infomedia/' . $entity->localId;
+        if (variable_get('ting_infomedia_url')) {
+          $url = ting_infomedia_get_article_link($entity->localId);
+        }
       }
 
       $altered_url = module_invoke_all('ting_online_url_alter', $url);
