@@ -114,10 +114,12 @@ function ting_relation_ding_entity_buttons($type, $entity) {
     }
 
     if (!$markup && $entity->online_url) {
+      $altered_url = module_invoke_all('ting_online_url_alter', $entity->online_url);
+      $url = $altered_url[0];
       $settings = variable_get('ting_url_labels', _ting_default_url_labels());
       $type = drupal_strtolower($entity->type);
       $label = !empty($settings[$type]) ? $settings[$type] : $settings['_default'];
-      $markup = l(t($label), $entity->online_url, array('attributes' => array('target' => '_new')));
+      $markup = l(t($label), urldecode($url), array('attributes' => array('target' => '_new')));
     }
 
     return array(
